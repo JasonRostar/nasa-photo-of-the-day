@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
+import axios from 'axios'
 
-function App() {
+const url = 'https://api.nasa.gov/planetary/apod?api_key=ptDJCasPgTBI6kg8fCc6vShrftTWeJNeLseoncJ3'
+
+
+const App = () => {
+
+axios.get(url)
+.then(res => {
+  const data = res;
+  console.log(data)
+})
+.catch(err => {
+  debugger
+})
+ 
+
   return (
     <div className="App">
       <p>
