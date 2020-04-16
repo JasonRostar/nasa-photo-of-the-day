@@ -1,30 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
-import axios from 'axios'
+import axios from "axios"
+import DataCard from "./dataCard.js"
 
-const url = 'https://api.nasa.gov/planetary/apod?api_key=ptDJCasPgTBI6kg8fCc6vShrftTWeJNeLseoncJ3'
+
+const url = 'https://api.nasa.gov/planetary/apod'
+const apiKey = 'ptDJCasPgTBI6kg8fCc6vShrftTWeJNeLseoncJ3'
+
 
 
 const App = () => {
+  //set state
+  const [data, setData] = useState([])
 
-axios.get(url)
-.then(res => {
-  const data = res;
-  console.log(data)
-})
-.catch(err => {
-  debugger
-})
- 
+  useEffect(() => {
+
+    axios.get(`${url}?api_key=${apiKey}`)
+
+      .then(res => {
+
+        setData(res.data)
+        console.log(res.data)
+
+      })
+      .catch(err => {
+        console.log("not fetching any info")
+
+      })
+
+  }, [])
 
   return (
     <div className="App">
-      <p>
-        Read through the instructions in the README.md file to build your NASA
-        app! Have fun <span role="img" aria-label='go!'>🚀</span>!
-      </p>
+      <DataCard cardData={data} />
+
     </div>
+
   );
 }
-
 export default App;
